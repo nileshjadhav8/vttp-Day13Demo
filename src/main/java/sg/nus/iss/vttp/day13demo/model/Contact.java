@@ -1,11 +1,5 @@
 package sg.nus.iss.vttp.day13demo.model;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.Random;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -13,6 +7,12 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Random;
+import org.springframework.format.annotation.DateTimeFormat;
+
+
 
 public class Contact {
 

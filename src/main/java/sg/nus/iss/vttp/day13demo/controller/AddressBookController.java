@@ -63,8 +63,4 @@ public String saveAddressBook(@Valid Contact contact, BindingResult bindingResul
         model.addAttribute("successMessage", "Contact saved successfully, with status code: " +HttpStatus.CREATED +".");
     return "showContact";
 }
-
-
-
-
 }
