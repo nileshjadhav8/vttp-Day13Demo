@@ -40,15 +40,33 @@ public class Contact {
 
     private String id;
 
-    public Contact() {
-     this.id = generateId();  
+   
+
+    public Contact(){
+        this.id = generateId();  
     }
     
+    
+    public Contact(String id,
+             String name,
+            String email,
+            String phoneNumber,
+            LocalDate dateOfBirth
+            ) {
+                this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.dateOfBirth = dateOfBirth;
+        
+    }
+
+
     private String generateId() {
         Random r = new Random();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         while(sb.length() < 8){
-            sb.append(Integer.toHexString(r.nextInt(8)));
+            sb.append(Integer.toHexString(r.nextInt()));
         }
         return sb.toString().substring(0, 8);
     }
