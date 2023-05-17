@@ -12,15 +12,21 @@
         <p>
             Name:
             <input type="text" data-th-field ="*{name}" />
+         <br/>
+         <span class = "error" data-th-if = "${#fields.hasErrors('name')}" data-th-errors = "*{name}" style="color: red
+         ;"></span>
           </p>
-        </br>
+        <br/>
 
 
         <p>
             Email:
             <input type="text" data-th-field ="*{email}" />
+            <br/>
+         <span class = "error" data-th-if = "${#fields.hasErrors('email')}" data-th-errors = "*{email}" style="color: red
+         ;"></span>
           </p>
-        </br>
+        <br/>
         
  
 
@@ -28,7 +34,10 @@
             Phone Number:
             <input type="text" data-th-field ="*{phoneNumber}" />
           </p>
-        </br>
+        <br/>
+        <br/>
+         <span class = "error" data-th-if = "${#fields.hasErrors('phoneNumber')}" data-th-errors = "*{phoneNumber}" style="color: red
+         ;"></span>
         
         <P>
             <input type="submit" value="Save" />

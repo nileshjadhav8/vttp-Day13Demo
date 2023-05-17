@@ -29,7 +29,7 @@ public String showAddressBook(Model model){
 
 ///to save the contact information
 @PostMapping( consumes ="application/x-www-form-urlencoded", path=  "/contact")
-public String saveAddressBook(@Valid Contact contact, BindingResult result ,Model model){
+public String saveAddressBook(@Valid Contact contact, BindingResult bindingResult ,Model model){
     
     System.out.println("Name: "+contact.getName());
 
@@ -37,11 +37,10 @@ public String saveAddressBook(@Valid Contact contact, BindingResult result ,Mode
 
     System.out.println("Phone Number: "+contact.getPhoneNumber());
 
- if(result.hasErrors()){
-    System.out.println("erro count -->" +result.getErrorCount());
- return "addressBook";  
+    if(bindingResult.hasErrors()){
+       return "addressBook";  
 
- }
+        }
   //String name = form.getFirst("name"); 
   //String email = form.getFirst("email"); 
   //String phone = form.getFirst("phoneNumber");
