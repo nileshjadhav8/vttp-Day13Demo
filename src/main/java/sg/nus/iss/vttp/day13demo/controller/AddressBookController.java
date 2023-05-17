@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,4 +64,27 @@ public String saveAddressBook(@Valid Contact contact, BindingResult bindingResul
         model.addAttribute("successMessage", "Contact saved successfully, with status code: " +HttpStatus.CREATED +".");
     return "showContact";
 }
+
+
+
+@GetMapping("/contact/{contactId}")
+    public String getContactById(Model model, @PathVariable String contactId) {
+        
+       Contact contact =  new Contact();
+       
+       contact = service.getContactById(contactId, dataDir);
+        if (contact == null) {
+            model.addAttribute("errorMessage", "Contact not found");
+            return "error";
+        }
+        model.addAttribute("contact", contact);
+        return "showContact";
+    }
+
+    @GetMapping(path = "/list")
+    public String getAllContacts(Model model) {
+        service.getAllContactInURI(model, dataDir);
+        return "contacts";
+    }
+    
 }
