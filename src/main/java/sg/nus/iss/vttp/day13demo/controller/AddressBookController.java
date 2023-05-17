@@ -1,10 +1,12 @@
 package sg.nus.iss.vttp.day13demo.controller;
 
 import org.apache.tomcat.util.http.parser.MediaType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,10 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
 import sg.nus.iss.vttp.day13demo.model.Contact;
+import sg.nus.iss.vttp.day13demo.utility.Utility;
 
 @Controller
 @RequestMapping(path = "/")
 public class AddressBookController {
+
+
+    @Autowired
+    Utility utility;
 
 //request method to load landing page
 @GetMapping
@@ -41,6 +48,12 @@ public String saveAddressBook(@Valid Contact contact, BindingResult bindingResul
        return "addressBook";  
 
         }
+
+     //custom data validation
+        if(!utility.isUniqueEmail(contact.getEmail())){
+            ObjectError err = new ObjectError("globalError","%s is not available".formatted(contact.getEmail())); 
+            bindingResult.addError(err);
+        }
   //String name = form.getFirst("name"); 
   //String email = form.getFirst("email"); 
   //String phone = form.getFirst("phoneNumber");
@@ -50,6 +63,8 @@ public String saveAddressBook(@Valid Contact contact, BindingResult bindingResul
   //System.out.println(phone);
     return "addressBook";
 }
+
+
 
 
 }
