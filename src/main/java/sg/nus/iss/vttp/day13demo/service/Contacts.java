@@ -13,14 +13,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.server.ResponseStatusException;
-
-import jakarta.validation.Path;
 import sg.nus.iss.vttp.day13demo.model.Contact;
+
+
+
+
 
 @Service
 public class Contacts {
@@ -50,12 +49,23 @@ public class Contacts {
     }
 
     public void getAllContactInURI(Model model, String dataDir) {
-        
+        Set<String> dataFiles = listFiles(dataDir);
+
+        Set<String> modifiedFiles = new HashSet<String>();
+        for(String file : dataFiles){
+
+            String modifiledFile = file.replace(".txt", "");
+            modifiedFiles.add(modifiledFile);
+        }
+
+        model.addAttribute("contacts", modifiedFiles.toArray(new String[dataFiles.size()]));
     }
     
     
+    private Set<String> listFiles(String dataDir) {
+       return Stream.of(new File(dataDir).listFiles()).filter(file -> !file.isDirectory()).map(File :: getName).collect(Collectors.toSet());
+    }
 
-   
     public Contact getContactById(String contactId, String dataDir) {
         Contact ctc = new Contact();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
