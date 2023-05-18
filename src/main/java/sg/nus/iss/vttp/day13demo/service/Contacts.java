@@ -73,11 +73,13 @@ public class Contacts {
             java.nio.file.Path filePath = new File(dataDir + "/" + contactId+".txt").toPath();
             //if(!filePath.toString().contains(".txt"))
             System.out.println("------>"+filePath);
-           Charset charset = Charset.forName("UTF-8");
+            Charset charset = Charset.forName("UTF-8");
             List<String> stringList = new ArrayList<String>();
             try {
                 stringList = Files.readAllLines(filePath, charset);
            
+ System.out.println(" stringList -- >" +stringList);
+
             ctc.setId(contactId);
             ctc.setName(stringList.get(0));
             ctc.setEmail(stringList.get(1));

@@ -66,7 +66,7 @@ public String saveAddressBook(@Valid Contact contact, BindingResult bindingResul
         
        Contact contact =  new Contact();
        
-       contact = service.getContactById(contactId, "dataDir");
+       contact = service.getContactById(contactId, dataDir);
         if (contact == null) {
             model.addAttribute("errorMessage", "Contact not found");
             return "error";
