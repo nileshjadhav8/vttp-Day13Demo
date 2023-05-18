@@ -19,8 +19,6 @@ import sg.nus.iss.vttp.day13demo.utility.Utility;
 @Controller
 @RequestMapping(path = "/")
 public class AddressBookController {
-
-
     @Autowired
     Utility utility;
 
@@ -37,35 +35,25 @@ public String showAddressBook(Model model){
     return "addressBook";
 }
 
-
 ///to save the contact information
 @PostMapping( consumes ="application/x-www-form-urlencoded", path=  "/contact")
-public String saveAddressBook(@Valid Contact contact, BindingResult bindingResult,Model model){
-    
+public String saveAddressBook(@Valid Contact contact, BindingResult bindingResult,Model model){ 
     if(bindingResult.hasErrors()){
        return "addressBook";  
-
-        }
-
+    }
      //custom data validation
        /*  if(!utility.isUniqueEmail(contact.getEmail())){
             ObjectError err = new ObjectError("globalError","%s is not available".formatted(contact.getEmail())); 
             bindingResult.addError(err);
         }*/
-
-
         service.save(contact, model, dataDir);
         model.addAttribute("successMessage", "Contact saved successfully, with status code: " +HttpStatus.CREATED +".");
     return "showContact";
 }
 
-
-
    @GetMapping("/contact/{contactId}")
     public String getContactById(Model model, @PathVariable String contactId) {
-        
        Contact contact =  new Contact();
-       
        contact = service.getContactById(contactId, dataDir);
         if (contact == null) {
             model.addAttribute("errorMessage", "Contact not found");
